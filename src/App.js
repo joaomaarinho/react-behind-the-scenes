@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback } from "react";
+
+import "./App.css";
+
+import Button from "./components/UI/Button/Button";
+import DemoOutput from "./components/UI/Button/Demo/DemoOutput";
 
 function App() {
+  let prevShowParagraph;
+
+  const [showParagraph, setShowParagraph] = useState(false);
+  const [allowToggle, setAllowToggle] = useState(false);
+
+  const toggleParagraphHandler = useCallback(() => {
+    if (allowToggle) {
+      setShowParagraph((prevShowParagraph = !prevShowParagraph));
+    }
+  }, [allowToggle]);
+
+  const allowTogglerHandler = () => {
+    setAllowToggle(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Hello</h1>
+      <DemoOutput show={showParagraph} />
+      <Button onClick={allowTogglerHandler}>Toggler Allower</Button>
+      <Button onClick={toggleParagraphHandler}>Toggle Paragraph</Button>
     </div>
   );
 }
